@@ -1,0 +1,92 @@
+
+.calenderContainer {
+    --calendar-bg-color: rgba(255, 255, 255, 0.2);
+    --calendar-header-bg-color: #262626;
+    background-color: var(--calendar-bg-color);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    color: white;
+}
+
+.selectedDate {
+    padding: 1em;
+    background-color: var(--calendar-header-bg-color);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.calenderControllers {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+}
+
+.controllerBtn {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    padding: 0.5em;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.calenderContainer button:hover {
+    background-color: var(--calendar-header-bg-color);
+}
+
+.calenderIcon {
+    color: #ECF15E;
+    font-size: 1.125rem;
+}
+
+.days {
+    display: flex;
+    padding-inline: 1em;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 0.875rem;
+    margin-block: 0.5em;
+}
+
+.calender {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    justify-content: space-around;
+    padding-bottom: 1em;
+    padding-inline: 1em;
+    gap: 0.25rem;
+}
+
+
+.day {
+    text-align: center;
+    font-size: 0.875rem;
+    padding: 0.5em 0.75em;
+}
+
+.realDay {
+    cursor: pointer;
+    color: white;
+    width: fit-content;
+    margin: auto;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.selected {
+    color: #ECF15E;
+    background-color:var(--calendar-header-bg-color);
+}

@@ -1,0 +1,30 @@
+.login {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.loginHeader {
+    text-align: center;
+    margin-bottom: 3em;
+    font-size: 1.5rem;
+}
+
+.loginForm {
+    margin-bottom: 2em;
+}
+
+
+.logo {
+    margin: 0 auto 1em;
+}
+
+@media(min-width: 600px) {
+
+    .loginHeader {
+        font-size: 2rem;
+    }
+    
+}

@@ -1,0 +1,30 @@
+
+.home {
+    min-height: 100vh;
+    display: grid;
+    gap: 3rem;
+}
+
+.homeContainer {
+    display: grid;
+    gap: 2rem;
+}
+
+.todoList {
+    margin-bottom: 3em;
+}
+
+.sidebar {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 3em;
+}
+
+@media (min-width: 800px) {
+
+    .homeContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+}

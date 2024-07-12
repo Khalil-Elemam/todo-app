@@ -1,0 +1,56 @@
+.fieldset {
+    border: none;
+}
+
+.fieldset+.fieldset {
+    margin-top: 1.5em;
+}
+
+.label {
+    display: inline-block;
+    margin-bottom: 0.5em;
+}
+
+.passwordLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.inputContainer {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    display: flex;
+    padding-left: 1em;
+    align-items: center;
+    border: solid rgba(255, 255, 255, 0.06);
+}
+
+.icon {
+    color: white;
+    margin-right: 0.75em;
+    font-size: 1.25rem;
+}
+
+.field {
+    border: none;
+    flex: 1;
+    background-color: transparent;
+    padding: 0.75em;
+    outline: none;
+    color: white;
+}
+
+.eyeBtn {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    margin-right: 0.75em;
+    font-size: 1.25rem;
+}

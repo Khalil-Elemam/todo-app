@@ -1,0 +1,66 @@
+
+.addTodoContainer {
+    margin-bottom: 1em;
+    border: 1px solid #ECF15E;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    background-color: #262626;
+    padding: 1em;
+}
+
+.icon {
+    font-size: 1.25rem;
+    color: #ECF15E;
+}
+
+.todoInputContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--clr-main);
+    padding: 0.5em;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+    margin-bottom: 1em;
+}
+
+.todoInput {
+    background-color: transparent;
+    border: none;
+    flex: 1;
+    outline: none;
+    color: white;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.dateInput {
+    flex-grow: 2;
+}
+
+.addBtn {
+    background-color: #ECF15E;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+    border: none;
+    padding: 0.5em 2em;
+    font-weight: 600;
+    color: var(--clr-main);
+    cursor: pointer;
+    flex-grow: 1;
+}

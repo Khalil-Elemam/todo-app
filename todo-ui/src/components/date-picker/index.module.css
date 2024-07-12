@@ -1,0 +1,43 @@
+
+
+.datePicker {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--clr-main);
+    padding: 0.5em;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+    position: relative;
+    justify-content: space-between;
+}
+
+.dateInput {
+    background-color: transparent;
+    color: white;
+    border: none;
+    outline: none;
+}
+
+.calendar {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 3;
+    --calendar-bg-color: var(--clr-main);
+    border: 1px solid #ECF15E;
+}
+
+.icon {
+    font-size: 1.25rem;
+    color: #ECF15E;
+}
+
+.calendarBtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}

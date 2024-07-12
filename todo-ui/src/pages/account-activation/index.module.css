@@ -1,0 +1,46 @@
+
+.accountActivation {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 1.75rem;
+    text-align: center;
+    color: #ECF15E;
+}
+
+.activationIcon {
+    font-size: 9rem;
+}
+
+.true {
+    color: lime
+}
+
+.false {
+    color: #D32F2F;
+}
+
+.content {
+    display: grid;
+    gap: 2rem;
+}
+
+.btn {
+    background-color: #ECF15E;
+    color: black;
+    padding: 0.5em 1.5em;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+    font-weight: bold;
+    text-align: center;
+}
