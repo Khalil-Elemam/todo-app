@@ -1,14 +1,20 @@
-import './App.css'
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
-import { LoginPage, SignUpPage, HomePage, AccountActivationPage } from './pages'
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { LoginPage, SignUpPage, HomePage, AccountActivationPage, NotFoundPage } from './pages'
+import AuthProvider from './context/AuthProvider'
+import { RequiresAuth } from './components'
 
 function App() {
 
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <SignUpPage />
+      element: (
+        <RequiresAuth>
+          <HomePage />
+        </RequiresAuth>
+      )
     },
     {
       path: '/login',
@@ -23,27 +29,19 @@ function App() {
       element: <HomePage />
     },
     {
-      path: '/settings',
-      element: <HomePage />
-    },
-    {
       path: '/activate-account',
       element: <AccountActivationPage />
+    },
+    {
+      path: '*',
+      element: <NotFoundPage />
     }
   ])
 
-  {
-      /*<BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Login />}/>
-        <Route path='/login' element={<Login />}/>
-        <Route path='/signup' element={<SignUp />} action = {action}/>
-      </Routes>
-    </BrowserRouter>*/
-  }
-
   return (
-    <RouterProvider router = {router}/>
+    <AuthProvider>
+      <RouterProvider router = {router}/>
+    </AuthProvider>
   )
 }
 

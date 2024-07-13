@@ -1,0 +1,25 @@
+
+.validationList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 1em;
+    background-color: #262626;
+    color: red;
+    list-style-position: inside;
+    padding: 0.5em;
+    font-size: 0.875rem;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.validationItem {
+    text-transform: capitalize;
+}
+
+.validationItem::marker {
+    color: #ECF15E;
+}

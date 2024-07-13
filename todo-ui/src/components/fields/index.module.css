@@ -2,7 +2,7 @@
     border: none;
 }
 
-.fieldset+.fieldset {
+*+.fieldset {
     margin-top: 1.5em;
 }
 

@@ -14,7 +14,7 @@ function TodoForm() {
             </div>
             <div className={styles.wrapper}>
                 <DatePicker className={styles.dateInput}/>
-                <button className={styles.addBtn}>Add</button>
+                <button className={styles.addBtn}>Save</button>
             </div>
         </div>
     )

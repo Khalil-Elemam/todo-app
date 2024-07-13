@@ -7,7 +7,6 @@ import { RiLockPasswordLine} from 'react-icons/ri'
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEye } from "react-icons/io5";
 import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
 
 import styles from './index.module.css'
 
@@ -52,7 +51,7 @@ export function EmailInput({name, value, handleChange}) {
 }
 
 
-export function PasswordInput({name, forgetPasswordLink = false, value, handleChange}) {
+export function PasswordInput({name, value, handleChange}) {
 
     const passwordInputRef = useRef()
     const [showPassword, setShowPassword] = useState(false)
@@ -61,7 +60,8 @@ export function PasswordInput({name, forgetPasswordLink = false, value, handleCh
         <fieldset className={styles.fieldset}>
             <div className={styles.passwordLabel}>
                 <label htmlFor="password" className={styles.label}>Password</label>
-                {forgetPasswordLink && <Link className='link-text'>Forgot Password?</Link>}
+                {/*todo --implement forget password for backend and frontend*/}
+                {/* {forgetPasswordLink && <Link className='link-text'>Forgot Password?</Link>} */}
             </div>
             <div className={styles.inputContainer}>
                 <RiLockPasswordLine className={styles.icon}/>

@@ -38,10 +38,10 @@ function LoginPage() {
                 <div className="glass-effect form-container">
                     <form className={styles.loginForm} onSubmit={handleSubmit}>
                         <EmailInput value={data.email} name='email' handleChange={handleChange}/>
-                        <PasswordInput forgetPasswordLink value={data.password} name='password' handleChange={handleChange}/>
+                        <PasswordInput value={data.password} name='password' handleChange={handleChange}/>
                         <button className='form-btn'>Log In</button>
                     </form>
-                    <p className={'link-text'}>
+                    <p className='link-text'>
                         Do not hava an account? <Link to='/register'>Sign Up</Link>
                     </p>
                 </div>
