@@ -23,8 +23,6 @@ import static org.springframework.http.HttpStatus.*;
 @RestControllerAdvice
 public class ExceptionController {
 
-    //todo -- refactor this mess
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(
             MethodArgumentNotValidException ex,
@@ -55,110 +53,40 @@ public class ExceptionController {
 
     @ExceptionHandler(EmailAlreadyTakenException.class)
     public ResponseEntity<ErrorResponse> handleEmailAlreadyTakenException(EmailAlreadyTakenException ex, HttpServletRequest request) {
-
-        HttpStatus status = HttpStatus.CONFLICT;
-        var error = ErrorResponse
-                .builder()
-                .message(ex.getMessage())
-                .error(status.name())
-                .status(status.value())
-                .timestamp(LocalDateTime.now())
-                .path(request.getRequestURI())
-                .method(request.getMethod())
-                .build();
-
-        return new ResponseEntity<>(error, status);
+        var status = CONFLICT;
+        return new ResponseEntity<>(getError(ex, request, status), status);
     }
 
-    @ExceptionHandler(TodoNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleTodoNotFoundException(TodoNotFoundException ex, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        var error = ErrorResponse
-                .builder()
-                .message(ex.getMessage())
-                .error(status.name())
-                .status(status.value())
-                .timestamp(LocalDateTime.now())
-                .path(request.getRequestURI())
-                .method(request.getMethod())
-                .build();
-
-        return new ResponseEntity<>(error, status);
-    }
-
-    @ExceptionHandler(TokenNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleTokenNotFoundException(TokenNotFoundException ex, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        var error = ErrorResponse
-                .builder()
-                .message(ex.getMessage())
-                .error(status.name())
-                .status(status.value())
-                .timestamp(LocalDateTime.now())
-                .path(request.getRequestURI())
-                .method(request.getMethod())
-                .build();
-
-        return new ResponseEntity<>(error, status);
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTokenNotFoundException(EntityNotFoundException ex, HttpServletRequest request) {
+        var status = NOT_FOUND;
+        return new ResponseEntity<>(getError(ex, request, status), status);
     }
 
     @ExceptionHandler(JwtException.class)
     public ResponseEntity<ErrorResponse> handleJwtExceptions(JwtException ex, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.UNAUTHORIZED;
-        var error = ErrorResponse
-                .builder()
-                .error(status.name())
-                .status(status.value())
-                .timestamp(LocalDateTime.now())
-                .path(request.getRequestURI())
-                .method(request.getMethod())
-                .message(ex.getMessage())
-                .build();
-        return new ResponseEntity<>(error, status);
+        var status = UNAUTHORIZED;
+        return new ResponseEntity<>(getError(ex, request, status), status);
     }
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ErrorResponse> handleAuthenticationException(HttpServletRequest request) {
         HttpStatus status = HttpStatus.UNAUTHORIZED;
-        var error = ErrorResponse
-                .builder()
-                .error(status.name())
-                .status(status.value())
-                .timestamp(LocalDateTime.now())
-                .path(request.getRequestURI())
-                .method(request.getMethod())
-                .message("Username or password aren't correct")
-                .build();
-        return new ResponseEntity<>(error, status);
+        return new ResponseEntity<>(getError(request, status, "Username or password aren't correct"), status);
     }
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
         HttpStatus status = FORBIDDEN;
-        var error = ErrorResponse
-                .builder()
-                .error(status.name())
-                .status(status.value())
-                .timestamp(LocalDateTime.now())
-                .path(request.getRequestURI())
-                .method(request.getMethod())
-                .message(ex.getMessage())
-                .build();
-        return new ResponseEntity<>(error, status);
+        return new ResponseEntity<>(getError(ex, request, status), status);
     }
 
     @ExceptionHandler(DisabledException.class)
     public ResponseEntity<ErrorResponse> handleAccountDisabledException(HttpServletRequest request) {
         var status = FORBIDDEN;
-        var error = ErrorResponse
-                .builder()
-                .error(status.name())
-                .status(status.value())
-                .timestamp(LocalDateTime.now())
-                .path(request.getRequestURI())
-                .method(request.getMethod())
-                .message("Your account is disabled, please check your email to activate")
-                .build();
-        return new ResponseEntity<>(error, status);
+        return new ResponseEntity<>(
+                getError(request, status, "Your account is disabled, please check your email to activate"),
+                status
+        );
     }
 
     @ExceptionHandler(VerificationTokenExpiredException.class)
@@ -168,15 +96,13 @@ public class ExceptionController {
     }
 
 
-
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleServerExceptions(Exception ex, HttpServletRequest request) {
         var status = INTERNAL_SERVER_ERROR;
         return new ResponseEntity<>(getError(ex, request, status), status);
     }
 
-    private static ErrorResponse getError(Exception ex, HttpServletRequest request, HttpStatus status) {
+    private ErrorResponse getError(Exception ex, HttpServletRequest request, HttpStatus status) {
         return ErrorResponse
                 .builder()
                 .error(status.name())
@@ -185,6 +111,22 @@ public class ExceptionController {
                 .path(request.getRequestURI())
                 .method(request.getMethod())
                 .message(ex.getMessage())
+                .build();
+    }
+
+    private ErrorResponse getError(
+            HttpServletRequest request,
+            HttpStatus status,
+            String msg
+    ) {
+        return ErrorResponse
+                .builder()
+                .error(status.name())
+                .status(status.value())
+                .timestamp(LocalDateTime.now())
+                .path(request.getRequestURI())
+                .method(request.getMethod())
+                .message(msg)
                 .build();
     }
 

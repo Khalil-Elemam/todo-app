@@ -8,14 +8,12 @@ import { Calendar } from '../../components'
 import { useEffect, useRef, useState } from "react";
 
 
-function DatePicker({className}) {
+function DatePicker({className, date, setDate}) {
 
     const [showCalendar, setShowCalendar] = useState(false) 
-    const [date, setDate] = useState(new Date())
     const inputRef = useRef()
     const calendarRef = useRef()
     
-
     function handleClickOutside(event) {
         if(
             !inputRef.current?.contains(event.target) 
@@ -26,14 +24,14 @@ function DatePicker({className}) {
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside)
-        return document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [])
 
 
     return (
         <div className={`${styles.datePicker} ${className}`} ref={inputRef}>
             <input 
-                type="text" 
+                type="text"
                 className={styles.dateInput}
                 readOnly
                 value={formatToDashes(date)}
@@ -44,7 +42,16 @@ function DatePicker({className}) {
             >
                 <BsFillCalendarPlusFill className={styles.icon}/>
             </button>
-            { showCalendar && <Calendar date={date} className={styles.calendar} setDate={setDate} ref={calendarRef}/> }
+            { showCalendar 
+                && 
+                <Calendar 
+                    startDate={date} 
+                    targetDate={date} 
+                    className={styles.calendar} 
+                    setTargetDate={setDate} 
+                    ref={calendarRef}
+                /> 
+            }
         </div>
     )
 }

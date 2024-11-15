@@ -4,17 +4,21 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { LoginPage, SignUpPage, HomePage, AccountActivationPage, NotFoundPage } from './pages'
 import AuthProvider from './context/AuthProvider'
 import { RequiresAuth } from './components'
+import PersistLogin from "./components/auth/PersistLogin"
 
 function App() {
 
   const router = createBrowserRouter([
     {
       path: '/',
-      element: (
-        <RequiresAuth>
-          <HomePage />
-        </RequiresAuth>
-      )
+      element: <PersistLogin />,
+      children: [
+        {index: true, element: (
+          <RequiresAuth>
+            <HomePage />
+          </RequiresAuth>
+        )}
+      ]
     },
     {
       path: '/login',

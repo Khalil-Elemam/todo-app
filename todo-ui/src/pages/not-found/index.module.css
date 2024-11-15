@@ -1,0 +1,15 @@
+
+
+.missing {
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+    padding: 1em;
+}
+
+.title {
+    font-size: 3.5rem;
+    color: #ECF15E;
+    letter-spacing: 5px;
+}
+

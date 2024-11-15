@@ -36,11 +36,16 @@ server:
     context-path: /api/v1/
 
 application:
+  frontend:
+    url: ${FRONTEND_URL}
+    activation-url: ${ACTIVATE_ACCOUNT_URL}
   security:
     jwt:
       secret-key: BC199D34B007BD069B98B8B3587C3B38D2A242EB42FA318678D1D3FF99F98FED
       access-token:
-        expiration: 86400000
+        expiration: 120000 #3600000
+      refresh-token:
+        expiration: 604800000
 
 
 #logging:

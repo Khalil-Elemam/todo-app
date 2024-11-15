@@ -5,8 +5,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,7 +27,6 @@ public class JwtFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
     private final HandlerExceptionResolver handlerExceptionResolver;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
     @Override
@@ -52,8 +49,6 @@ public class JwtFilter extends OncePerRequestFilter {
             if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
                 if(jwtService.isTokenValid(userDetails, token)) {
-                    logger.info("Inside if statement");
-                    logger.info("This is the SecurityContextHolder Authentication Object {}", SecurityContextHolder.getContext().getAuthentication());
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                             new UsernamePasswordAuthenticationToken(
                                     userDetails,
@@ -66,7 +61,6 @@ public class JwtFilter extends OncePerRequestFilter {
                     );
 
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-                    //logger.info("This is the security context holder after the auth {}", SecurityContextHolder.getContext().getAuthentication());
                 }
             }
             filterChain.doFilter(request, response);

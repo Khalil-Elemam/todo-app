@@ -3,6 +3,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    padding-block: 3em;
     z-index: 1;
 }
 

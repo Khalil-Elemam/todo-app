@@ -1,3 +1,4 @@
+
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
@@ -17,7 +18,9 @@ export function formatToMonthYear(date) {
 }
 
 
-// Example: 2024 - 07 - 01
+// Example: 2024-07-01
 export function formatToDashes(date) {
-    return date.toISOString().split("T")[0].replaceAll('-', ' - ')
+    if (typeof date === 'string' && date.match(/\d{2}-\d{2}-\d{2}/)) 
+        return date
+    return date.toISOString().split("T")[0]
 }

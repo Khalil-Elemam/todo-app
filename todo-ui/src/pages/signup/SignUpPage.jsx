@@ -7,13 +7,13 @@ import { Link } from 'react-router-dom'
 import { object, string } from 'yup'
 import styles from './index.module.css'
 import { useState } from 'react'
-import { register } from '../../api/AuthenticationService'
 import { ValidationErrorList } from '../../components'
+import axios from '../../api/AxiosConfig'
 
 
 function SignUp() {
 
-    const [data, setData] = useState({
+    const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
         email: '',
@@ -56,7 +56,7 @@ function SignUp() {
         })
 
         try {
-            await schema.validate(data, {abortEarly: false})
+            await schema.validate(formData, {abortEarly: false})
             return true
         } catch(error) {
             error.inner.forEach(({path, message}) => {
@@ -72,15 +72,15 @@ function SignUp() {
 
     function handleChange(e) {
         const {name, value} = e.target
-        setData(prevData => ({...prevData, [name]: value}))
+        setFormData(prevData => ({...prevData, [name]: value}))
     }
 
     async function handleSubmit(e) {
         e.preventDefault()
         if (await validate()) {
             try {
-                const {message} = (await register(data)).data
-                setSuccess(message)
+                const {data} = await axios.post('/auth/register', formData)
+                setSuccess(data?.message)
                 setError(null)
             } catch(error) {
                 const message = error.response.data.message || 'registration failed'
@@ -99,16 +99,16 @@ function SignUp() {
                 </div>
                 <p className={styles.welcomeText}>Join SuperList. Simplify your tasks today!</p>
                 <div className="glass-effect form-container">
-                    {error && <p className={styles.error}>{error}</p>}
-                    {success && <p className={styles.success}>{success}</p>}
+                    {error && <p className='form-error'>{error}</p>}
+                    {success && <p className='form-success'>{success}</p>}
                     <form className={styles.signUpForm} onSubmit={handleSubmit}>
-                        <FirstName name = 'firstName' value={data.firstName} handleChange={handleChange}/>
+                        <FirstName name = 'firstName' value={formData.firstName} handleChange={handleChange}/>
                         {validationErrors.firstName.length !== 0 && <ValidationErrorList errors={validationErrors.firstName}/>}
-                        <LastName name = 'lastName' value={data.lastName} handleChange={handleChange}/>
+                        <LastName name = 'lastName' value={formData.lastName} handleChange={handleChange}/>
                         {validationErrors.lastName.length !== 0 && <ValidationErrorList errors={validationErrors.lastName}/>}
-                        <EmailInput name = 'email' value={data.email} handleChange={handleChange}/>
+                        <EmailInput name = 'email' value={formData.email} handleChange={handleChange}/>
                         {validationErrors.email.length !== 0 && <ValidationErrorList errors={validationErrors.email}/>}
-                        <PasswordInput name = 'password' value={data.password} handleChange={handleChange}/>
+                        <PasswordInput name = 'password' value={formData.password} handleChange={handleChange}/>
                         {validationErrors.password.length !== 0 && <ValidationErrorList errors={validationErrors.password}/>}
                         <button className='form-btn'>Sign Up</button>
                     </form>

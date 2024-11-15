@@ -2,10 +2,10 @@
 
 import styles from './index.module.css'
 
-function ValidationErrorList({errors}) {
+function ValidationErrorList({errors, className=styles.default}) {
 
     return (
-        <ul className={styles.validationList}>
+        <ul className={`${styles.validationList} ${className}`}>
             {errors.map((e, i) => {
                 return <li key={i} className={styles.validationItem}>{e}</li>
             })}

@@ -1,7 +1,6 @@
 package com.killuacode.Todoapi.todo;
 
 
-import com.killuacode.Todoapi.user.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,7 @@ public class TodoController {
             @RequestParam(required = false) LocalDate date,
             Authentication authentication
     ) {
-        return todoService.retrieveTodos(getUserId(authentication), date);
+        return todoService.retrieveTodos(authentication, date);
     }
 
     @GetMapping("{todoId}")
@@ -33,7 +32,7 @@ public class TodoController {
             @PathVariable Integer todoId,
             Authentication authentication
     ) {
-        return todoService.retrieveTodo(getUserId(authentication), todoId);
+        return todoService.retrieveTodo(authentication, todoId);
     }
 
     @PostMapping
@@ -41,15 +40,15 @@ public class TodoController {
             @RequestBody @Valid Todo todo,
             Authentication authentication
     ) {
-        return new ResponseEntity<>(todoService.createTodo(todo, getUserId(authentication)), CREATED);
+        return new ResponseEntity<>(todoService.createTodo(todo, authentication), CREATED);
     }
 
     @DeleteMapping("{todoId}")
     public ResponseEntity<Void> deleteTodo(
-            Authentication authentication,
-            @PathVariable Integer todoId
+            @PathVariable Integer todoId,
+            Authentication authentication
     ) {
-        todoService.deleteTodo(getUserId(authentication), todoId);
+        todoService.deleteTodo(authentication, todoId);
         return new ResponseEntity<>(NO_CONTENT);
     }
 
@@ -57,15 +56,10 @@ public class TodoController {
     @PutMapping("{todoId}")
     public ResponseEntity<Todo> updateTodo(
             @RequestBody @Valid Todo todo,
-            Authentication authentication,
-            @PathVariable Integer todoId
+            @PathVariable Integer todoId,
+            Authentication authentication
     ) {
-        return new ResponseEntity<>(todoService.updateTodo(todo, getUserId(authentication), todoId), OK);
-    }
-
-    private Integer getUserId(Authentication authentication) {
-        var user = (User) authentication.getPrincipal();
-        return user.getId();
+        return new ResponseEntity<>(todoService.updateTodo(authentication, todo, todoId), OK);
     }
 
 }

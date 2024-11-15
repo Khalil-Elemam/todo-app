@@ -60,8 +60,6 @@ export function PasswordInput({name, value, handleChange}) {
         <fieldset className={styles.fieldset}>
             <div className={styles.passwordLabel}>
                 <label htmlFor="password" className={styles.label}>Password</label>
-                {/*todo --implement forget password for backend and frontend*/}
-                {/* {forgetPasswordLink && <Link className='link-text'>Forgot Password?</Link>} */}
             </div>
             <div className={styles.inputContainer}>
                 <RiLockPasswordLine className={styles.icon}/>

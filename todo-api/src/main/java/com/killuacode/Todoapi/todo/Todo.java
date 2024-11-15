@@ -2,10 +2,9 @@ package com.killuacode.Todoapi.todo;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.killuacode.Todoapi.user.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -25,11 +24,11 @@ public class Todo {
     @GeneratedValue
     private Integer id;
 
-    @Size(min = 10, message = "Todo content should be more than 10 Characters")
+    @Size(min = 5, message = "Todo content should be at least 5 Characters")
     @NotBlank
     private String content;
 
-    @Future(message = "Target Date should be in the future")
+    @FutureOrPresent(message = "Target Date should be in the future or present")
     @NotNull
     private LocalDate targetDate;
 

@@ -45,6 +45,7 @@
     color: #ECF15E;
     font-size: 1.25rem;
     flex-shrink: 0;
+    pointer-events: none;
 }
 
 

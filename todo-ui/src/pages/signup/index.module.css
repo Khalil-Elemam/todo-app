@@ -31,30 +31,6 @@
     margin-block: 1em 3em;
 }
 
-.error,
-.success {
-    background-color: #262626;
-    padding: 1em;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    text-align: center;
-    color: var(--message-clr);
-    border: 1px solid var(--message-clr);
-    margin-bottom: 2em;
-    text-transform: capitalize;
-}
-
-.error {
-    --message-clr: red;
-}
-
-.success {
-    --message-clr: #ECF15E;
-}
-
 .signUpForm {
     margin-bottom: 2em;
 }

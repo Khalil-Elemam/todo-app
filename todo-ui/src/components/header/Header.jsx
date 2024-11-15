@@ -1,45 +1,29 @@
-import { HiMenu } from "react-icons/hi"; 
-import { NavLink } from 'react-router-dom'
+/* eslint-disable react/prop-types */
+
+
+import { useNavigate } from 'react-router-dom'
 import logo from '../../assets/logo.png'
-import { useState } from "react";
+import useLogout from '../../hooks/useLogout'
 import styles from './index.module.css'
 
 function Header() {
 
-    const [showMenu, setShowMenu] = useState(false)
+    const logout = useLogout()
+    const navigate = useNavigate()
+
+    async function handleLogout() {
+        await logout()
+        navigate('/login')
+    }
 
     return (
         <header className={styles.header} >
             <div className={`container ${styles.container}`}>
                 <div className={styles.headerLogo}>
-                <img src={logo} alt="Superlist logo" className="logo-image" />
-                <h1 className="logo-text">Superlist</h1>
+                    <img src={logo} alt="Superlist logo" className="logo-image" />
+                    <h1 className="logo-text">Superlist</h1>
                 </div>
-                <nav className={`${styles.navbar} ${showMenu ? styles.displayed : ''}`}>
-                    <ul className={styles.navLinks}>
-                        <li>
-                            <NavLink 
-                                to='/todos' 
-                                className={({isActive}) => `${styles.navLink} ${isActive ? styles.active : ''}`}
-                            >Todos</NavLink>
-                        </li>
-                        <li>
-                            <NavLink 
-                                to='/settings' 
-                                className={({isActive}) => `${styles.navLink} ${isActive ? '' : ''}`}
-                            >Settings</NavLink>
-                        </li>
-                        <li>
-                            <NavLink 
-                                to='/logout' 
-                                className={({isActive}) => `${styles.navLink} ${isActive ? styles.active : ''}`}
-                            >Logout</NavLink>
-                        </li>
-                    </ul>
-                </nav>
-                <button className={styles.menuBtn} onClick={() => setShowMenu(prevShowMenu => !prevShowMenu)}>
-                    <HiMenu />
-                </button>
+                <button className={styles.logoutBtn} onClick={handleLogout}>Logout</button>
             </div>
         </header>
     )

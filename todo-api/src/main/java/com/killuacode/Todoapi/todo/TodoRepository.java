@@ -20,5 +20,4 @@ public interface TodoRepository extends JpaRepository<Todo, Integer> {
 
     @Query(value = "select t from Todo t where t.user.id = :userId and t.id = :todoId")
     Optional<Todo> findByIdForSpecificUser(Integer userId, Integer todoId);
-
 }

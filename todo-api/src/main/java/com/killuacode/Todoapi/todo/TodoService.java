@@ -1,68 +1,70 @@
 package com.killuacode.Todoapi.todo;
 
 
+import com.killuacode.Todoapi.exception.EntityNotFoundException;
 import com.killuacode.Todoapi.user.User;
-import com.killuacode.Todoapi.exception.TodoNotFoundException;
-import com.killuacode.Todoapi.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
-
 import java.time.LocalDate;
 import java.util.List;
+
+import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Service
 @RequiredArgsConstructor
 public class TodoService {
 
     private final TodoRepository todoRepository;
-    private final UserRepository userRepository;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private List<Todo> retrieveAllTodos(Integer userId) {
+    private List<Todo> retrieveAllTodos(Authentication authentication) {
+        var userId = getUser(authentication).getId();
         return todoRepository.findByUserId(userId);
     }
 
-    public Todo retrieveTodo(Integer userId, Integer todoId) {
+    public Todo retrieveTodo(Authentication authentication, Integer todoId) {
+        var userId = getUser(authentication).getId();
         return todoRepository
                 .findByIdForSpecificUser(userId, todoId)
-                .orElseThrow(() -> new TodoNotFoundException("Todo with id = " + todoId + " isn't found"));
+                .orElseThrow(() -> new EntityNotFoundException("Todo with id = " + todoId + " isn't found"));
     }
 
-    private List<Todo> retrieveTodosByDate(Integer userId, LocalDate date) {
+    private List<Todo> retrieveTodosByDate(Authentication authentication, LocalDate date) {
+        var userId = getUser(authentication).getId();
         return todoRepository.findByTargetDate(userId, date);
     }
 
 
-    public Todo createTodo(Todo todo, Integer userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow();
+    public Todo createTodo(Todo todo, Authentication authentication) {
+        var user = getUser(authentication);
         todo.setUser(user);
         return todoRepository.save(todo);
     }
 
-    public void deleteTodo(Integer userId, Integer todoId) {
-        todoRepository.deleteById(todoId);
+    public void deleteTodo(Authentication authentication, Integer todoId) {
+        var userId = getUser(authentication).getId();
+        var todo = todoRepository.findByIdForSpecificUser(userId, todoId)
+                .orElseThrow(() -> new EntityNotFoundException("Todo with id :: " + todoId + " not found for user with id :: " + userId));
+        todoRepository.delete(todo);
     }
 
 
-    public Todo updateTodo(Todo updatedTodo, Integer userId, Integer todoId) {
-        User user = userRepository.findById(userId).orElseThrow();
-        Todo todo = todoRepository
-                .findById(todoId)
-                .orElseThrow(() -> new TodoNotFoundException("Todo with id = " + todoId + " isn't found"));
-
-        BeanUtils.copyProperties(updatedTodo, todo);
+    public Todo updateTodo(Authentication authentication, Todo updatedTodo, Integer todoId) {
+        var userId = getUser(authentication).getId();
+        var todo = todoRepository.findByIdForSpecificUser(userId, todoId)
+                .orElseThrow(() -> new EntityNotFoundException("Todo with id :: " + todoId + " not found for user with id :: " + userId));
+        copyProperties(updatedTodo, todo, "id", "user");
         return todoRepository.save(todo);
     }
 
-    public List<Todo> retrieveTodos(Integer userId, LocalDate targetDate) {
+    public List<Todo> retrieveTodos(Authentication authentication, LocalDate targetDate) {
         if(targetDate == null) {
-            return retrieveAllTodos(userId);
+            return retrieveAllTodos(authentication);
         }
-        return retrieveTodosByDate(userId, targetDate);
+        return retrieveTodosByDate(authentication, targetDate);
+    }
+
+    private User getUser(Authentication authentication) {
+        return (User) authentication.getPrincipal();
     }
 }

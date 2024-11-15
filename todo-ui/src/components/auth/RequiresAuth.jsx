@@ -2,15 +2,15 @@
 
 
 import { Navigate } from "react-router-dom"
-import useAuth from "../../hooks/useAuth"
+import { useAuth } from "../../hooks"
 
 
 function RequiresAuth({children}) {
 
-    const {isAuthenticated} = useAuth()
+    const {token} = useAuth()
 
     return (
-        isAuthenticated ? {children} : <Navigate to='/login' />
+        token ? children : <Navigate to='/login' />
     )
 }
 

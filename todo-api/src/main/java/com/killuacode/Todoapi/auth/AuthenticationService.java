@@ -3,19 +3,23 @@ package com.killuacode.Todoapi.auth;
 
 import com.killuacode.Todoapi.email.EmailService;
 import com.killuacode.Todoapi.exception.EmailAlreadyTakenException;
-import com.killuacode.Todoapi.exception.TokenNotFoundException;
+import com.killuacode.Todoapi.exception.EntityNotFoundException;
 import com.killuacode.Todoapi.exception.VerificationTokenExpiredException;
 import com.killuacode.Todoapi.security.JwtService;
 import com.killuacode.Todoapi.user.Token;
 import com.killuacode.Todoapi.user.TokenRepository;
 import com.killuacode.Todoapi.user.User;
 import com.killuacode.Todoapi.user.UserRepository;
+import io.jsonwebtoken.JwtException;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -27,7 +31,6 @@ import static java.time.LocalDateTime.now;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class AuthenticationService {
 
     private final UserRepository userRepository;
@@ -39,6 +42,15 @@ public class AuthenticationService {
 
     @Value("${spring.mail.username}")
     private String sender;
+
+    @Value("${application.security.jwt.access-token.expiration}")
+    private long accessTokenExpiration;
+
+    @Value("${application.security.jwt.refresh-token.expiration}")
+    private long refreshTokenExpiration;
+
+    @Value("${application.frontend.activation-url}")
+    private String accountActivationUrl;
 
 
     public void register(RegisterRequest request) throws MessagingException {
@@ -56,7 +68,10 @@ public class AuthenticationService {
     }
 
 
-    public AuthenticationResponse login(AuthenticationRequest request) {
+    public AuthenticationResponse login(
+            AuthenticationRequest request,
+            HttpServletResponse response
+    ) {
 
         var auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -66,7 +81,14 @@ public class AuthenticationService {
 
         User user = (User) auth.getPrincipal();
 
-        String accessToken = jwtService.generateAccessToken(user);
+        var accessToken = jwtService.generateToken(user, accessTokenExpiration);
+        var refreshToken = jwtService.generateToken(user, refreshTokenExpiration);
+        var cookie = new Cookie("refresh_token", refreshToken);
+        cookie.setHttpOnly(true);
+        //cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge((int) (refreshTokenExpiration / 1000));
+        response.addCookie(cookie);
         return AuthenticationResponse
                 .builder()
                 .accessToken(accessToken)
@@ -77,8 +99,7 @@ public class AuthenticationService {
 
     private void sendVerificationEmail(String to, String name, String token) throws MessagingException {
         String activationLink = ServletUriComponentsBuilder
-                .fromCurrentContextPath()
-                .path("/auth/activate-account")
+                .fromPath(accountActivationUrl)
                 .queryParam("token", token)
                 .toUriString();
         emailService.sendVerificationEmail(sender, to, name, activationLink);
@@ -86,7 +107,7 @@ public class AuthenticationService {
 
     public AccountActivationResponse activateAccount(String verificationToken) throws MessagingException {
         Token token = tokenRepository.findByToken(verificationToken)
-                .orElseThrow(() -> new TokenNotFoundException("Token not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Token: " + verificationToken + " not found"));
 
         User user = token.getUser();
 
@@ -123,5 +144,42 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .build();
+    }
+
+    public AuthenticationResponse refresh(
+            String refreshToken
+    ) {
+        if (refreshToken == null)
+            throw new JwtException("refresh token can't be null");
+        var userEmail = jwtService.extractUsername(refreshToken);
+        if (userEmail != null) {
+            var user = userRepository.findByEmail(userEmail)
+                    .orElseThrow(() -> new UsernameNotFoundException("user not found"));
+            if(jwtService.isTokenValid(user, refreshToken))
+                return new AuthenticationResponse(jwtService.generateToken(user, accessTokenExpiration));
+        }
+        return null;
+    }
+
+    public void logout(
+            String refreshToken,
+            HttpServletResponse response
+    ) {
+        if (refreshToken == null)
+            throw new JwtException("refresh token can't be null");
+        var userEmail = jwtService.extractUsername(refreshToken);
+        if (userEmail != null) {
+            var user = userRepository.findByEmail(userEmail)
+                    .orElseThrow(() -> new UsernameNotFoundException("user not found"));
+            if(jwtService.isTokenValid(user, refreshToken)) {
+                var cookie = new Cookie("refresh_token", null);
+                cookie.setPath("/");
+                cookie.setHttpOnly(true);
+                cookie.setMaxAge(0);
+                //cookie.setSecure(true);
+                response.addCookie(cookie);
+                SecurityContextHolder.clearContext();
+            }
+        }
     }
 }

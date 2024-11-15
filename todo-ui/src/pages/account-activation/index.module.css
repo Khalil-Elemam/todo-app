@@ -8,6 +8,22 @@
     gap: 4rem;
 }
 
+.glassWrapper {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4rem;
+    margin: auto;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
 .title {
     font-weight: bold;
     font-size: 1.75rem;

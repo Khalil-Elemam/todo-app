@@ -64,3 +64,7 @@
     cursor: pointer;
     flex-grow: 1;
 }
+
+.validationList {
+    background-color: var(--clr-main);
+}
