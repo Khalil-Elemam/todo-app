@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import {useAuth, useRefreshToken} from "../../hooks"
 import { Outlet } from "react-router-dom"
+import Loading from "../loading/Loading"
 
 function PersistLogin() {
 
@@ -25,7 +26,7 @@ function PersistLogin() {
     }, [refresh, token])
 
     return (
-        loading ? <p>Loading...</p> : <Outlet />
+        loading ? <Loading /> : <Outlet />
     )
 }
 

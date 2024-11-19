@@ -29,10 +29,6 @@ function App() {
       element: <SignUpPage />
     },
     {
-      path: '/todos',
-      element: <HomePage />
-    },
-    {
       path: '/activate-account',
       element: <AccountActivationPage />
     },

@@ -22,7 +22,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.UUID;
 
@@ -50,7 +49,7 @@ public class AuthenticationService {
     private long refreshTokenExpiration;
 
     @Value("${application.frontend.activation-url}")
-    private String accountActivationUrl;
+    private String activationBaseUrl;
 
 
     public void register(RegisterRequest request) throws MessagingException {
@@ -98,10 +97,7 @@ public class AuthenticationService {
 
 
     private void sendVerificationEmail(String to, String name, String token) throws MessagingException {
-        String activationLink = ServletUriComponentsBuilder
-                .fromPath(accountActivationUrl)
-                .queryParam("token", token)
-                .toUriString();
+        var activationLink = "%s?token=%s".formatted(activationBaseUrl, token);
         emailService.sendVerificationEmail(sender, to, name, activationLink);
     }
 
