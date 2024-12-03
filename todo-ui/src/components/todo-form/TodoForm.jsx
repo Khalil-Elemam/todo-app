@@ -43,7 +43,8 @@ function TodoForm({addTodo, updateTodo, todo, setTodo}) {
         setTodo(prevTodo => ({...prevTodo, targetDate: date}))
     }
 
-    async function handleSave() {
+    async function handleSave(e) {
+        e.preventDefault()
         let success = false
         if (await validate()){
             if (todo.id) 
@@ -56,7 +57,7 @@ function TodoForm({addTodo, updateTodo, todo, setTodo}) {
     }
 
     return (
-        <div className={styles.addTodoContainer}>
+        <form onSubmit={handleSave} className={styles.addTodoContainer}>
             <div className={styles.todoInputContainer}>
                 <RiTodoFill className={styles.icon}/>
                 <input 
@@ -72,7 +73,7 @@ function TodoForm({addTodo, updateTodo, todo, setTodo}) {
                 <button className={styles.addBtn} onClick={handleSave}>Save</button>
             </div>
             {validationErrors.length !== 0 && <ValidationErrorList errors={validationErrors} className={styles.validationList}/>}
-        </div>
+        </form>
     )
 }
 

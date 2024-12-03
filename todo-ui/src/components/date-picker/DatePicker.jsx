@@ -39,6 +39,7 @@ function DatePicker({className, date, setDate}) {
             <button 
                 className={styles.calendarBtn}
                 onClick={() => setShowCalendar(prevShowCalendar => !prevShowCalendar)}
+                type="button"
             >
                 <BsFillCalendarPlusFill className={styles.icon}/>
             </button>

@@ -1,9 +1,8 @@
 
 .header {
-    background-color: #262626;
+    background-color: var(--neutral-dark);
     color: white;
     padding-block: 0.875rem;
-    position: sticky;
 }
 
 .container {
@@ -21,8 +20,8 @@
 
 .logoutBtn {
     padding: 0.53em 1.25em;
-    background-color: #ECF15E;
-    color: #0E0F11;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
     border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;

@@ -1,6 +1,6 @@
 
 .progressBox {
-    background-color: #262626;
+    background-color: var(--neutral-dark);
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -17,7 +17,7 @@
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
-    background-color: var(--clr-main);
+    background-color: var(--primary-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,7 +37,7 @@
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
     position: relative;
-    background: conic-gradient(from 180deg, #ECF15E 0%, #ECF15E var(--prog), var(--clr-main) var(--prog));
+    background: conic-gradient(from 180deg, var(--secondary-color) 0%, var(--secondary-color) var(--prog), var(--primary-color) var(--prog));
 }
 
 .progressInfo {
@@ -48,7 +48,7 @@
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
-    background-color: #262626;
+    background-color: var(--neutral-dark);
     position: relative;
     display: grid;
     place-content: center;
@@ -68,12 +68,12 @@
 }
 
 .infoItem::marker {
-    color: #ECF15E;
+    color: var(--secondary-color);
 }
 
 .doneText {
     text-align: center;
-    color: #ECF15E;
+    color: var(--secondary-color);
     margin-top: 1em;
 }
 

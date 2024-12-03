@@ -24,6 +24,7 @@ function Calendar({targetDate, className, setTargetDate, startDate=new Date(), d
                         .map((_, index) => (
                                 <button 
                                     key={index} 
+                                    type="button"
                                     className={`${styles.day} ${styles.realDay} 
                                         ${targetDate && targetDate.toDateString() === date.toDateString() && date.getDate() === index + 1 ? styles.selected : ''}`
                                     } 
@@ -49,7 +50,6 @@ function Calendar({targetDate, className, setTargetDate, startDate=new Date(), d
         setDate(prevDate => {
             const newDate = new Date(prevDate);
             newDate.setMonth(newDate.getMonth() + 1);
-            console.log(prevDate.getMonth(), newDate.getMonth())
             if (newDate.getMonth() !== (prevDate.getMonth() + 1) % 12) {
                 newDate.setDate(0);
             }
@@ -59,7 +59,7 @@ function Calendar({targetDate, className, setTargetDate, startDate=new Date(), d
 
     function decreaseDateMonth() {
         setDate(prevDate => {
-            const newDate = new Date(prevDate);
+            const newDate = new Date(prevDate); 
             newDate.setMonth(newDate.getMonth() - 1);
             if (newDate.getMonth() !== (prevDate.getMonth() - 1 + 12) % 12) {
                 newDate.setDate(0);
@@ -76,11 +76,13 @@ function Calendar({targetDate, className, setTargetDate, startDate=new Date(), d
                 <button
                     className={styles.controllerBtn}
                     onClick={decreaseDateMonth}
+                    type="button"
                 ><AiFillCaretLeft className={styles.calenderIcon} /></button>
                 <p className={styles.controllersDate}>{formatToMonthYear(date)}</p>
                 <button 
                     className={styles.controllerBtn}
                     onClick={increaseDateMonth}
+                    type="button"
                 ><AiFillCaretRight className={styles.calenderIcon}/></button>
             </div>
             <div className={styles.days}>

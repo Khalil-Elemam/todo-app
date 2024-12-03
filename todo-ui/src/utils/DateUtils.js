@@ -6,7 +6,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 export function formatToDayMonth(date) {
     const day = DAYS[date.getDay()]
     const month = MONTHS[date.getMonth()]
-    const dayNum = date.getUTCDate()
+    const dayNum = date.getDate()
     return `${day}, ${month} ${dayNum}`
 }
 
@@ -20,7 +20,7 @@ export function formatToMonthYear(date) {
 
 // Example: 2024-07-01
 export function formatToDashes(date) {
-    if (typeof date === 'string' && date.match(/\d{2}-\d{2}-\d{2}/)) 
+    if (typeof date === 'string' && date.match(/^\d{4}-\d{2}-\d{2}$/)) 
         return date
-    return date.toISOString().split("T")[0]
+    return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${(date.getDate()).toString().padStart(2, '0')}`
 }

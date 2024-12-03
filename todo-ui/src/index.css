@@ -1,5 +1,7 @@
 :root {
-  --clr-main: #0E0F11;
+  --primary-color: #0E0F11;
+  --secondary-color: #ECF15E;
+  --neutral-dark: #262626;
 }
 
 /* html {
@@ -24,7 +26,7 @@ svg, picture, img {
 body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
-  background-color: var(--clr-main);
+  background-color: var(--primary-color);
   color: white;
 }
 
@@ -33,7 +35,7 @@ body {
 
 a {
   text-decoration: none;
-  color: #ECF15E;
+  color: var(--secondary-color);
 }
 
 button:hover {
@@ -51,9 +53,9 @@ button:hover {
 
 .form-btn {
   padding: 0.75em;
-  background-color: #ECF15E;
+  background-color: var(--secondary-color);
   width: 100%;
-  color: #0E0F11;
+  color: var(--primary-color);
   border-radius: 8px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -69,7 +71,7 @@ button:hover {
 
 
 .tag {
-  background-color: var(--clr-main);
+  background-color: var(--primary-color);
   width: fit-content;
   padding: .25em;
   font-size: .875rem;
@@ -106,7 +108,7 @@ button:hover {
 
 .form-error,
 .form-success {
-  background-color: #262626;
+  background-color: var(--neutral-dark);
   padding: 1em;
   border-radius: 10px;
   -webkit-border-radius: 10px;
@@ -125,7 +127,7 @@ button:hover {
 }
 
 .form-success {
-  --message-clr: #ECF15E;
+  --message-clr: var(--secondary-color);
 }
 
 

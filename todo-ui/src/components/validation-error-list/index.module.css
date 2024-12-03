@@ -20,9 +20,9 @@
 }
 
 .validationItem::marker {
-    color: #ECF15E;
+    color: var(--secondary-color);
 }
 
 .default {
-    background-color: #262626;
+    background-color: var(--neutral-dark);
 }

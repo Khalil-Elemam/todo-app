@@ -3,7 +3,7 @@
 .signUp {
     display: flex;
     align-items: center;
-    background-color: var(--clr-main);
+    background-color: var(--primary-color);
     min-height: 100vh;
     color: white;
     padding-block: 3em;

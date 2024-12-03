@@ -1,26 +1,26 @@
 
 .addTodoContainer {
     margin-bottom: 1em;
-    border: 1px solid #ECF15E;
+    border: 1px solid var(--secondary-color);
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-    background-color: #262626;
+    background-color: var(--neutral-dark);
     padding: 1em;
 }
 
 .icon {
     font-size: 1.25rem;
-    color: #ECF15E;
+    color: var(--secondary-color);
 }
 
 .todoInputContainer {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background-color: var(--clr-main);
+    background-color: var(--primary-color);
     padding: 0.5em;
     border-radius: 7px;
     -webkit-border-radius: 7px;
@@ -51,7 +51,7 @@
 }
 
 .addBtn {
-    background-color: #ECF15E;
+    background-color: var(--secondary-color);
     border-radius: 7px;
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
@@ -60,11 +60,11 @@
     border: none;
     padding: 0.5em 2em;
     font-weight: 600;
-    color: var(--clr-main);
+    color: var(--primary-color);
     cursor: pointer;
     flex-grow: 1;
 }
 
 .validationList {
-    background-color: var(--clr-main);
+    background-color: var(--primary-color);
 }

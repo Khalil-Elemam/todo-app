@@ -1,7 +1,7 @@
 .todo {
     padding: 1em;
-    border: 1px solid #ECF15E;
-    background-color: #262626;
+    border: 1px solid var(--secondary-color);
+    background-color: var(--neutral-dark);
     color: white;
     border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -42,7 +42,7 @@
 }
 
 .todoIcon {
-    color: #ECF15E;
+    color: var(--secondary-color);
     font-size: 1.25rem;
     flex-shrink: 0;
     pointer-events: none;
@@ -58,7 +58,7 @@
 }
 
 .todoController {
-    background-color: var(--clr-main);
+    background-color: var(--primary-color);
     border: none;
     padding: .25em;
     border-radius: 5px;

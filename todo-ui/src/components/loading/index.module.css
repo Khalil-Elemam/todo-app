@@ -14,22 +14,22 @@
 
 @keyframes l5 {
     0% {
-        box-shadow: 35px 0 #ECF15E, -35px 0 #ECF15E33;
-        background: #ECF15E;
+        box-shadow: 35px 0 var(--secondary-color), -35px 0 #ECF15E33;
+        background: var(--secondary-color);
     }
 
     33% {
-        box-shadow: 35px 0 #ECF15E, -35px 0 #ECF15E33;
+        box-shadow: 35px 0 var(--secondary-color), -35px 0 #ECF15E33;
         background: #ECF15E33;
     }
 
     66% {
-        box-shadow: 35px 0 #ECF15E33, -35px 0 #ECF15E;
+        box-shadow: 35px 0 #ECF15E33, -35px 0 var(--secondary-color);
         background: #ECF15E33;
     }
 
     100% {
-        box-shadow: 35px 0 #ECF15E33, -35px 0 #ECF15E;
-        background: #ECF15E;
+        box-shadow: 35px 0 #ECF15E33, -35px 0 var(--secondary-color);
+        background: var(--secondary-color);
     }
 }

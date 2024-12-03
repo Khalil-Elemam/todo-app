@@ -9,7 +9,7 @@
 
 .title {
     font-size: 3.5rem;
-    color: #ECF15E;
+    color: var(--secondary-color);
     letter-spacing: 5px;
 }
 

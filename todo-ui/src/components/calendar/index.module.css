@@ -1,7 +1,7 @@
 
 .calenderContainer {
     --calendar-bg-color: rgba(255, 255, 255, 0.2);
-    --calendar-header-bg-color: #262626;
+    --calendar-header-bg-color: var(--neutral-dark);
     background-color: var(--calendar-bg-color);
     border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -43,7 +43,7 @@
 }
 
 .calenderIcon {
-    color: #ECF15E;
+    color: var(--secondary-color);
     font-size: 1.125rem;
 }
 
@@ -87,6 +87,6 @@
 }
 
 .selected {
-    color: #ECF15E;
+    color: var(--secondary-color);
     background-color:var(--calendar-header-bg-color);
 }
