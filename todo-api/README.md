@@ -2,12 +2,16 @@
 
 Welcome to the backend of the Superlist Todo application, built with Spring Boot and Java. This API handles user authentication, authorization, and manages the todo items for the app.
 
+---
+
 ## Features
 
 - **User Authentication**: Allows users to sign up, log in, and authenticate using JWT (JSON Web Tokens).
 - **Email Activation**: Sends a verification email to users after signing up for account activation.
 - **Todo Management**: Users can create, update, delete, and retrieve todos.
 - **Secure API**: All endpoints require authentication via JWT tokens.
+
+---
 
 ## Environment Variables
 
@@ -35,6 +39,8 @@ Set the following environment variables:
 
 - **FRONTEND_URL**: URL of the frontend application for authentication requests.
 
+---
+
 ## Getting Started
 
 1. Clone this repository.
@@ -42,6 +48,8 @@ Set the following environment variables:
 3. Run `mvn clean install` to build the project.
 4. Set the required environment variables.
 5. Run the application using your IDE or command line.
+
+---
 
 ## License
 
