@@ -46,10 +46,3 @@ application:
         expiration: 3600000
       refresh-token:
         expiration: 604800000
-
-
-#logging:
-#  level:
-#    org:
-#      springframework:
-#        security: trace
